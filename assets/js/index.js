@@ -41,7 +41,7 @@ function startQuiz() {
 
   // reset params
   document.getElementById("user").value = "";
-  timeLimit = 10;
+  timeLimit = 60;
   score = 0;
 
   showQuestion(questionIndex);
