@@ -1,4 +1,7 @@
 let questionIndex = 0;
+let timeLimit = 10;
+let score = 0;
+let timeInterval;
 
 // make questions
 const questions = [
@@ -14,19 +17,32 @@ const questions = [
   },
 ];
 
-// controls
 const startBtn = document.getElementById("startBtn");
+const restartBtn = document.getElementById("restartBtn");
 const questionBox = document.getElementById("questionBox");
+const quizTimer = document.getElementById("quizTimer");
+const showScoreBtnLink = document.getElementById("showScoreBtnLink");
+
+const scoreList = document.querySelector("#scoreList");
 
 // attach start function to a button
 startBtn.addEventListener("click", startQuiz);
+restartBtn.addEventListener("click", startQuiz);
+showScoreBtnLink.addEventListener("click", showScores);
 
 function startQuiz() {
   // hide warning
   document.getElementById("sWarning").className = "d-none";
+  document.getElementById("sScore").className = "d-none";
+  document.getElementById("sScores").className = "d-none";
 
   // show questions
   document.getElementById("sQuestion").className = "";
+
+  // reset params
+  document.getElementById("user").value = "";
+  timeLimit = 10;
+  score = 0;
 
   showQuestion(questionIndex);
 }
@@ -35,6 +51,10 @@ function startQuiz() {
 function showQuestion(index) {
   // clear question box
   document.querySelector("#questionBox").innerHTML = "";
+  document.querySelector("#answerBox").innerHTML = "";
+
+  // show timer
+  quizTimerLimit();
 
   const question = questions[index];
 
@@ -62,14 +82,115 @@ function showQuestion(index) {
 
 // check answer
 function checkAnswer(choice, answer) {
-  const correct = choice === answer ? true : false;
-  console.log(correct)
+  // stop when got an answer
+  clearInterval(timeInterval);
+
+  // check asnwer
+  const answerBox = document.querySelector("#answerBox");
+
+  // deduct time if wrong
+  if (choice === answer) {
+    score += 1;
+    answerBox.innerHTML = "Correct";
+  } else {
+    timeLimit -= 10;
+    answerBox.innerHTML = "Wrong";
+  }
+
+  // add 1 to index
   questionIndex++;
 
+  // move to next
   if (questionIndex < questions.length) {
-    showQuestion(questionIndex);
-  } 
-  else {
-    console.log('No more questions, show score.')
+    setTimeout(() => {
+      showQuestion(questionIndex);
+    }, 1000);
+  } else {
+    console.log("No more questions, show score.");
+    clearInterval(timeInterval);
+    showScore();
+  }
+}
+
+// timer
+function quizTimerLimit() {
+  timeInterval = setInterval(() => {
+    timeLimit--;
+    quizTimer.textContent = timeLimit;
+
+    // time is up
+    if (timeLimit <= 0) {
+      clearInterval(timeInterval);
+      console.log("Your time is up!");
+      showScore();
+    }
+  }, 1000);
+}
+
+// show score
+function showScore() {
+  // hide warning
+  document.getElementById("sWarning").className = "d-none";
+  document.getElementById("sQuestion").className = "d-none";
+  document.getElementById("sScores").className = "d-none";
+
+  // show scores
+  document.getElementById("sScore").className = "";
+
+  const scoreBox = document.getElementById("scoreBox");
+  scoreBox.innerHTML = score;
+}
+
+// local storage
+function getStoreScores() {
+  const scores = JSON.parse(localStorage.getItem("storedScores"));
+  return scores !== null ? scores : [];
+}
+
+const saveScoreBtn = document.getElementById("saveScoreBtn");
+saveScoreBtn.addEventListener("click", saveScoreToLocal);
+
+function saveScoreToLocal() {
+  // get value from input
+  const user = document.getElementById("user").value;
+
+  // hold user data and score
+  const tmp = {
+    user: user,
+    score: score,
+  };
+
+  // console.log(tmp);
+
+  // store search
+  let scoresTmp = getStoreScores();
+  const scores = scoresTmp.filter((e) => e.user !== user);
+  scores.unshift(tmp);
+
+  localStorage.setItem("storedScores", JSON.stringify(scores));
+
+  showScores();
+}
+
+function showScores() {
+  const scores = getStoreScores();
+  // console.log(scores);
+
+  scoreList.innerHTML = "";
+
+  // hide warning
+  document.getElementById("sWarning").className = "d-none";
+  document.getElementById("sQuestion").className = "d-none";
+  document.getElementById("sScore").className = "d-none";
+
+  // show scores
+  document.getElementById("sScores").className = "";
+
+  // to ui
+  for (let score of scores) {
+    const scoreItem = document.createElement("li");
+    scoreItem.className = "list-group-item";
+    scoreItem.innerHTML = `${score.user} - ${score.score}`;
+    scoreList.appendChild(scoreItem);
   }
 }

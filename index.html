@@ -16,12 +16,20 @@
       body {
         font-family: "Nunito", sans-serif;
       }
+      .btn-link {
+        text-decoration: none;
+        color: white;
+      }
+      .btn-link:hover {
+        text-decoration: none;
+        color: gray;
+      }
     </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-4">
       <div class="container">
-        <a class="navbar-brand" href="#">Code Quiz</a>
+        <a class="navbar-brand" href="/index.html">Code Quiz</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -36,7 +44,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/#">Scores</a>
+              <button id="showScoreBtnLink" class="btn btn-link">Scores</button>
             </li>
           </ul>
         </div>
@@ -44,8 +52,9 @@
     </nav>
 
     <div class="container my-4">
-      <h1 class="text-center">Code Quiz</h1>
-
+      <div class="col-md-6 m-auto">
+        <h1>Code Quiz <span id="quizTimer" class="float-end"></span></h1>
+      </div>
       <!-- warning -->
       <section id="sWarning">
         <div class="card my-4 col-md-6 m-auto">
@@ -75,6 +84,45 @@
         <div class="card my-4 col-md-6 m-auto">
           <div class="card-header text-danger" id="questionTitle"></div>
           <div class="card-body vstack gap-2" id="questionBox"></div>
+          <div class="card-footer">
+            <div class="text-center" id="answerBox"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- score -->
+      <section id="sScore" class="d-none">
+        <div class="card my-4 col-md-6 m-auto">
+          <div class="card-header">All done</div>
+          <div class="card-body">
+            <p>You got a total score of <strong id="scoreBox"></strong>.</p>
+            <input
+              class="form-control form-control"
+              id="user"
+              type="text"
+              placeholder="Enter your initials to save score."
+            />
+          </div>
+          <div class="card-footer">
+            <div class="float-end">
+              <button id="saveScoreBtn" class="btn btn-success">Save</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- scores -->
+      <section id="sScores" class="d-none">
+        <div class="card my-4 col-md-6 m-auto">
+          <div class="card-header text-primary">Scores</div>
+          <div class="card-body">
+            <ul id="scoreList" class="list-group list-group-flush"></ul>
+          </div>
+          <div class="card-footer">
+            <div class="float-end">
+              <button id="restartBtn" class="btn btn-success">Start Quiz</button>
+            </div>
+          </div>
         </div>
       </section>
     </div>
