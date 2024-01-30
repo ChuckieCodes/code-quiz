@@ -15,6 +15,28 @@ const questions = [
     answer: "Parenthesis",
     choices: ["Quotes", "Curly Brackets", "Parenthesis", "Square Brackets"],
   },
+  {
+    question: "Arrays in JavaScript can be used to store?",
+    answer: "All of the above",
+    choices: [
+      "Numbers and Strings",
+      "Other Arrays",
+      "Booleans",
+      "All of the above",
+    ],
+  },
+  {
+    question:
+      "String values must be enclosed within blank. When being assigned to variables.",
+    answer: "Quotes",
+    choices: ["Commas", "Curly Brackets", "Parenthesis", "Quotes"],
+  },
+  {
+    question:
+      "A very useful tool used during development and debugging for printing content to the debugger.",
+    answer: "Console.log",
+    choices: ["JavaScript", "Terminal", "For Loops", "Console.log"],
+  },
 ];
 
 const startBtn = document.getElementById("startBtn");
@@ -101,15 +123,15 @@ function checkAnswer(choice, answer) {
   questionIndex++;
 
   // move to next
-  if (questionIndex < questions.length) {
-    setTimeout(() => {
+  setTimeout(() => {
+    if (questionIndex < questions.length) {
       showQuestion(questionIndex);
-    }, 1000);
-  } else {
-    console.log("No more questions, show score.");
-    clearInterval(timeInterval);
-    showScore();
-  }
+    } else {
+      console.log("No more questions, show score.");
+      clearInterval(timeInterval);
+      showScore();
+    }
+  }, 1000);
 }
 
 // timer
