@@ -36,9 +36,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/#"
-                >Scores</a
-              >
+              <a class="nav-link" aria-current="page" href="/#">Scores</a>
             </li>
           </ul>
         </div>
@@ -46,21 +44,37 @@
     </nav>
 
     <div class="container my-4">
-      <section id="warning">
-        <h1 class="text-center">Code Quiz</h1>
+      <h1 class="text-center">Code Quiz</h1>
+
+      <!-- warning -->
+      <section id="sWarning">
         <div class="card my-4 col-md-6 m-auto">
           <div class="card-header text-danger">Warning</div>
           <div class="card-body">
             <ol>
               <li>
-                Try to answer the following code-related questions within the time limit.
+                Try to answer the following code-related questions within the
+                time limit.
               </li>
-              <li>Keep in mind that Incorrect answer will penalize your time by <span class="text-danger">10</span> seconds!</li>
+              <li>
+                Keep in mind that Incorrect answer will penalize your time by
+                <span class="text-danger">10</span> seconds!
+              </li>
             </ol>
           </div>
         </div>
         <div class="text-center">
-          <button id="startBtn" type="button" class="btn btn-danger btn-lg">Start</button>
+          <button id="startBtn" type="button" class="btn btn-danger btn-lg">
+            Start
+          </button>
+        </div>
+      </section>
+
+      <!-- question -->
+      <section id="sQuestion" class="d-none">
+        <div class="card my-4 col-md-6 m-auto">
+          <div class="card-header text-danger" id="questionTitle"></div>
+          <div class="card-body vstack gap-2" id="questionBox"></div>
         </div>
       </section>
     </div>
