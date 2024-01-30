@@ -1,5 +1,5 @@
 let questionIndex = 0;
-let timeLimit = 10;
+let timeLimit = 60;
 let score = 0;
 let timeInterval;
 
