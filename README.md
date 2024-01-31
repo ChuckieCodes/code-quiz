@@ -3,6 +3,9 @@
 
 [![badge](https://img.shields.io/badge/license-Apache-brightgreen)](https://opensource.org/licenses/Apache)<br />
 
+![alt deployed app screenshot](https://chuckiecodes.github.io/code-quiz/assets/images/Screenshot-2024-01-31-at-10.52.54-AM.png)
+<br />
+
 ## Description
 A web based quiz app powered by HTML, CSS and JavaScript.
 
